@@ -2,7 +2,8 @@ package ports
 
 import (
 	"context"
-	"ex-aurora/internal/domain/entities"
+
+	"github.com/phankieuphu/go-aws-example/internal/domain/entities"
 )
 
 type UserRepository interface {

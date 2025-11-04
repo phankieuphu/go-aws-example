@@ -1,10 +1,14 @@
 package main
 
 import (
-	"context"
-	"ex-aurora/config"
-	"ex-aurora/internal/adapters/repositories"
 	"fmt"
+	"log"
+
+	"github.com/phankieuphu/go-aws-example/internal/domain/handlers"
+	"github.com/phankieuphu/go-aws-example/internal/domain/services"
+
+	"github.com/phankieuphu/go-aws-example/config"
+	"github.com/phankieuphu/go-aws-example/internal/adapters/repositories"
 
 	"github.com/joho/godotenv"
 )
@@ -15,11 +19,18 @@ func main() {
 	cfg := config.LoadEnvConfig()
 	//db := rds.NewRDSClient(cfg)
 	//	db.AutoMigrate(&entities.User{})
-	println(cfg.RDS.HOST)
 	repository := repositories.NewUserRepository(cfg)
-	users, err := repository.GetUser(context.Background())
-	if err != nil {
+	fmt.Println("Repository: ")
+	userService := services.NewUserServices(*repository)
+	fmt.Println("userService: ")
+
+	r := handlers.SetupRouters(userService)
+
+	// return
+	addr := fmt.Sprintf(":%s", "8080")
+	log.Printf("Server is running at %s", addr)
+
+	if err := r.Run(addr); err != nil {
+		log.Fatalf("Failed to run server", err)
 	}
-	fmt.Println(users)
-	return
 }

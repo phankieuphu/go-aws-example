@@ -2,10 +2,12 @@ package repositories
 
 import (
 	"context"
-	"ex-aurora/config"
-	"ex-aurora/internal/adapters/rds"
-	"ex-aurora/internal/domain/entities"
-	"ex-aurora/internal/domain/ports"
+
+	"github.com/phankieuphu/go-aws-example/config"
+
+	"github.com/phankieuphu/go-aws-example/internal/adapters/rds"
+	"github.com/phankieuphu/go-aws-example/internal/domain/entities"
+	"github.com/phankieuphu/go-aws-example/internal/domain/ports"
 
 	"gorm.io/gorm"
 )
